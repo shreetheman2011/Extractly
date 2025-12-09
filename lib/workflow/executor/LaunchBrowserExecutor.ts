@@ -1,6 +1,7 @@
 import { waitFor } from "@/lib/helper/waitFor";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import puppeteer from "puppeteer";
+import chromium from "@sparticuz/chromium";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
 
 export async function LaunchBrowserExecutor(
