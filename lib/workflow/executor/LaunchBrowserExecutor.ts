@@ -12,7 +12,7 @@ export async function LaunchBrowserExecutor(
     const browser = await puppeteer.launch({
       headless: true,
       args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
-      executablePath: await chromium.executablePath()
+      executablePath: await chromium.executablePath("/vercel/path0/node_modules/@sparticuz/chromium/bin")
     });
 
     environment.log.info("Browser started up successfully");
