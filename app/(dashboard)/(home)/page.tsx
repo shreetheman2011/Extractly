@@ -57,7 +57,7 @@ async function PeriodicSelectorWrapper({
 async function StatsCards({ selectedPeriod }: { selectedPeriod: Period }) {
   const data = await GetStatsCardsValues(selectedPeriod);
   return (
-    <div className="grid gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
+    <div className="grid mb-3 gap-3 lg:gap-8 lg:grid-cols-3 min-h-[120px]">
       <StatsCard
         title="Workflow Executions"
         value={data.workflowExecutions}
