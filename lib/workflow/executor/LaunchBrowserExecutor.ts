@@ -9,12 +9,15 @@ export async function LaunchBrowserExecutor(
 ): Promise<boolean> {
   try {
     const websiteUrl = environment.getInput("Website URL");
+  
 const chromiumPackUrl = 'https://078h7zk6ohgtft0m.public.blob.vercel-storage.com/chromium-v143.0.0-pack.x64.tar'; 
+    console.log("Got chromium pack URL");
 
 const browser = await puppeteer.launch({devtools: true, headless: true,    executablePath: await chromium.executablePath(chromiumPackUrl),    args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
 
 });
-    
+
+    console.log("Launched chromium");
 
 
     environment.log.info("Browser started up successfully");
