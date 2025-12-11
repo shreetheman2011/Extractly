@@ -171,7 +171,8 @@ export default function ExecutionViewer({
       <div className="flex w-full h-full">
         {isRunning && (
           <div className="flex items-center flex-col gap-2 justify-center h-full w-full">
-            <p className="font-bold">Running execution, please wait...</p>
+            <p className="font-bold">Running execution, please wait</p>
+            <p className="font-semibold">It may take a few minutes to launch the browser. Please bear with us...</p>
           </div>
         )}
         {!isRunning && !selectedPhase && (
