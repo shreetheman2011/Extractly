@@ -2,16 +2,18 @@ import { waitFor } from "@/lib/helper/waitFor";
 import { Environment, ExecutionEnvironment } from "@/types/executor";
 import puppeteer from "puppeteer";
 import { LaunchBrowserTask } from "../task/LaunchBrowser";
-import chromium from "@sparticuz/chromium";
+import chromium from "@sparticuz/chromium-min";
 
 export async function LaunchBrowserExecutor(
   environment: ExecutionEnvironment<typeof LaunchBrowserTask>
 ): Promise<boolean> {
   try {
     const websiteUrl = environment.getInput("Website URL");
-        const executablePath = await chromium.executablePath(); 
+const chromiumPackUrl = 'https://078h7zk6ohgtft0m.public.blob.vercel-storage.com/chromium-v143.0.0-pack.arm64.tar'; 
 
-const browser = await puppeteer.launch({devtools: true, headless: true,executablePath: executablePath});
+const browser = await puppeteer.launch({devtools: true, headless: true,    executablePath: await chromium.executablePath(chromiumPackUrl),    args: [...chromium.args, '--no-sandbox', '--disable-setuid-sandbox'],
+
+});
     
 
 
