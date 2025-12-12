@@ -2,6 +2,12 @@ import { HandleCheckoutSessionCompleted } from "@/lib/stripe/handleCheckoutSessi
 import { stripe } from "@/lib/stripe/stripe";
 import { headers } from "next/headers";
 import { NextResponse } from "next/server";
+// Add this function to your route.ts
+export async function GET() {
+  // A GET request just confirms the endpoint is reachable.
+  // It should return a 200 OK status.
+  return new NextResponse("Stripe webhook endpoint is active.", { status: 200 });
+}
 
 export async function POST(request: Request) {
   const body = await request.text();
