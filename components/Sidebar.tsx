@@ -32,8 +32,8 @@ const routes = [
     icon: ShieldCheckIcon,
   },
   {
-    href: "/invoices",
-    label: "Invoices",
+    href: "/billing",
+    label: "Credits",
     icon: DollarSignIcon,
   },
 ];
