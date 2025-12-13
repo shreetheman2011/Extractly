@@ -45,19 +45,27 @@ export async function HandleCheckoutSessionCompleted(
       });
     });
     
+
   } catch (error) {
-    // --- FIX IS HERE ---
-    // Check if the error is a Prisma Unique Constraint Violation
+    // Check if the error is a known Prisma error
     if (error instanceof PrismaClientKnownRequestError) {
       // P2002 is the code for Unique Constraint Violation
-      if (error.code === 'P2002' && error.meta?.target.includes('stripeId')) {
-          console.log(`Purchase already fulfilled for Stripe ID: ${event.id}. Skipping.`);
-          // Success: The error means it was already processed. Return to avoid Stripe retries.
-          return; 
+      if (error.code === 'P2002') {
+        
+        // --- THE FIX IS HERE ---
+        // Assert the type of error.meta to an object we expect for P2002
+        const meta = error.meta as { target: string[] } | undefined;
+
+        // Now we can safely check for the 'target' array and include the field name
+        if (meta?.target.includes('stripeId')) {
+            console.log(`Purchase already fulfilled for Stripe ID: ${event.id}. Skipping.`);
+            // Success: The error means it was already processed. Return to avoid Stripe retries.
+            return; 
+        }
       }
     }
     
-    // For any other error, log it and re-throw, which causes the webhook to return 400.
+    // For any other error, log it and re-throw
     console.error(`Error fulfilling purchase for Stripe ID: ${event.id}`, error);
     throw error;
   }
